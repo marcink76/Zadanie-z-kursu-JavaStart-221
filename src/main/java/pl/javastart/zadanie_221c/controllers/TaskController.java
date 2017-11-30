@@ -39,9 +39,16 @@ public class TaskController {
         return "redirect:showall";
     }
     @PostMapping("/changestatus")
-    public String statusChange(@RequestParam long id, Model model){
+    public String statusChange(@RequestParam long id){
         taskPersistent.updateStatus(id);
         return "redirect:showall";
+    }
+
+    @PostMapping("/showallday")
+    public String showallfromday(@RequestParam String date, Model model){
+        List<Task> taskList =  taskPersistent.showDay(date);
+        model.addAttribute("taskList", taskList);
+        return "showall";
     }
 
 }

@@ -5,31 +5,48 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<table>
-    <tr>
-        <td>LP</td>
-        <td>ZADANIE</td>
-        <td>CZAS TRWANIA</td>
-        <td>DATA ROZPOCZĘCIA</td>
-        <td>STATUS</td>
-        <td>ZMIEN STATUS</td>
-    </tr>
-    <tr th:each="task:${taskList}">
-        <td th:text="${task.id}"></td>
-        <td th:text="${task.taskName}"></td>
-        <td th:text="${task.durationTime}"></td>
-        <td th:text="${task.startTime}"></td>
-        <td th:text="${task.doneStatus}"></td>
-        <td>
-            <form th:action="@{/changestatus}" method="post">
-                <input type="checkbox" th:checked="${task.doneStatus}" name="doneStatus" />
-                <button name="id" th:value="${task.id}" type="submit" value="potwierdź">Zmien status</button>
-            </form>
-        </td>
+<div>
+    <form th:action="@{/showallday}" method="post">
+        <p>Wyświetl zadania z dnia: </p><input type="date" name="date" dataformatas="dd-MM-yyyy" th:value="${date}"/>
+        <input type="submit" value="Pokaż"/>
+    </form>
+</div>
 
-    </tr>
+<div>
+    <table>
+        <tr>
+            <td>LP</td>
+            <td>ZADANIE</td>
+            <td>CZAS TRWANIA</td>
+            <td>DATA ROZPOCZĘCIA</td>
+            <td>STATUS</td>
+            <td>ZMIEN STATUS</td>
+        </tr>
+        <tr th:each="task:${taskList}">
+            <td th:text="${task.id}"></td>
+            <td th:text="${task.taskName}"></td>
+            <td th:text="${task.durationTime}"></td>
+            <td th:text="${task.startTime}"></td>
+            <td th:text="${task.doneStatus}"></td>
+            <td>
+                <form th:action="@{/changestatus}" method="post">
+                    <input type="checkbox" th:checked="${task.doneStatus}" name="doneStatus"/>
+                    <button name="id" th:value="${task.id}" type="submit" value="potwierdź">Zmien status</button>
+                </form>
+            </td>
 
-</table>
+        </tr>
+
+    </table>
+</div>
+<div>
+    <form th:action="@{/}" method="get">
+        <button name="id" value="potwierdź">Powrót</button>
+    </form>
+</div>
+<div th:if="${taskList.isEmpty()}">
+    <p>Brak zadan</p>
+</div>
 
 </body>
 </html>
