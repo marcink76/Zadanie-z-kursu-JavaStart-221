@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Strona startowa</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<form th:action="@{/addtask}" method="post" th:object="${task}">
+    <p>Nazwa: </p><input type="text" th:field="*{taskName}"/>
+    <p>Czas trwania w h: </p><input type="text" th:field="*{durationTime}"/>
+    <p>Data rozpoczęcia: </p><input type="date" dataformatas="dd-MM-yyyy" th:field="*{startTime}"/>
+    <input type="submit" value="dodaj"/>
+</form>
+
+</body>
+</html>

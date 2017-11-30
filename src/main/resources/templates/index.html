@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Strona startowa</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<p th:text="${message}"></p>
+<form th:action="@{/showall}">
+    <input type="submit" value="Pokaż wszystkie"/>
+</form>
+<form th:action="@{/addtaskform}">
+    <input type="submit" value="Dodaj zadanie"/>
+</form>
+
+</body>
+</html>
