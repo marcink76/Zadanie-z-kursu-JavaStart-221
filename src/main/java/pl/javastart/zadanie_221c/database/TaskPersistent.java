@@ -30,7 +30,8 @@ public class TaskPersistent {
     }
     public void updateStatus(long id){
         Task task = taskRepositoryInterface.findOne(id);
-        task.setDoneStatus(true);
+        if (!task.isDoneStatus()) task.setDoneStatus(true);
+        else task.setDoneStatus(false);
         entityManager.persist(task);
     }
 

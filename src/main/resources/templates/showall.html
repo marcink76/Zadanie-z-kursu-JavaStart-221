@@ -6,6 +6,14 @@
 </head>
 <body>
 <table>
+    <tr>
+        <td>LP</td>
+        <td>ZADANIE</td>
+        <td>CZAS TRWANIA</td>
+        <td>DATA ROZPOCZĘCIA</td>
+        <td>STATUS</td>
+        <td>ZMIEN STATUS</td>
+    </tr>
     <tr th:each="task:${taskList}">
         <td th:text="${task.id}"></td>
         <td th:text="${task.taskName}"></td>
@@ -15,7 +23,7 @@
         <td>
             <form th:action="@{/changestatus}" method="post">
                 <input type="checkbox" th:checked="${task.doneStatus}" name="doneStatus" />
-                <input name="id" th:value="${task.id}" type="submit" value="potwierdź"/>
+                <button name="id" th:value="${task.id}" type="submit" value="potwierdź">Zmien status</button>
             </form>
         </td>
 
