@@ -7,10 +7,16 @@
 <body>
 <form th:action="@{/addtask}" method="post" th:object="${task}">
     <p>Nazwa: </p><input type="text" th:field="*{taskName}"/>
-    <p>Czas trwania w h: </p><input type="text" th:field="*{durationTime}"/>
-    <p>Data rozpoczęcia: </p><input type="date" dataformatas="dd-MM-yyyy" th:field="*{startTime}"/>
+
+    <p>Data rozpoczęcia: </p><input type="date" dataformatas="dd-MM-yyyy" th:field="*{startDate}"/>
+    <p>Czas rozpoczęcia: </p><input type="time" th:field="*{startTime}"/>
+    <p>Czas trwania w h: </p><input type="time" th:field="*{durationTime}"/>
     <input type="submit" value="dodaj"/>
 </form>
-
+<div>
+    <form th:action="@{/}" method="get">
+        <button name="id" value="potwierdź">Powrót</button>
+    </form>
+</div>
 </body>
 </html>

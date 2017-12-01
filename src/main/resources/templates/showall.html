@@ -11,21 +11,27 @@
         <input type="submit" value="Pokaż"/>
     </form>
 </div>
-
-<div>
+<div th:if="${taskList.isEmpty()}">
+    <p>Brak zadan</p>
+</div>
+<div th:unless="${taskList.isEmpty()}">
+    <p><div>
     <table>
         <tr>
-            <td>LP</td>
-            <td>ZADANIE</td>
-            <td>CZAS TRWANIA</td>
-            <td>DATA ROZPOCZĘCIA</td>
-            <td>STATUS</td>
-            <td>ZMIEN STATUS</td>
+            <th>LP</th>
+            <th>ZADANIE</th>
+            <th>CZAS TRWANIA</th>
+            <th>DATA ROZPOCZĘCIA</th>
+            <th>GODZINA ROZPOCZECIA</th>
+            <th>STATUS</th>
+            <th>ZMIEN STATUS</th>
+            <th>CZAS DO ROZPOCZECIA</th>
         </tr>
         <tr th:each="task:${taskList}">
             <td th:text="${task.id}"></td>
             <td th:text="${task.taskName}"></td>
             <td th:text="${task.durationTime}"></td>
+            <td th:text="${task.startDate}"></td>
             <td th:text="${task.startTime}"></td>
             <td th:text="${task.doneStatus}"></td>
             <td>
@@ -34,19 +40,19 @@
                     <button name="id" th:value="${task.id}" type="submit" value="potwierdź">Zmien status</button>
                 </form>
             </td>
-
+            <td th:text="${timeToStart}"></td>
         </tr>
 
     </table>
+</div></p>
 </div>
+
 <div>
     <form th:action="@{/}" method="get">
         <button name="id" value="potwierdź">Powrót</button>
     </form>
 </div>
-<div th:if="${taskList.isEmpty()}">
-    <p>Brak zadan</p>
-</div>
+
 
 </body>
 </html>

@@ -2,9 +2,9 @@ package pl.javastart.zadanie_221c.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "zadanie")
@@ -12,20 +12,16 @@ public class Task {
     @Id
     @GeneratedValue
     private long id;
-    @Column(name = "user_name", length = 30, nullable = false)
+    @Column(name = "task_name", length = 150, nullable = false)
     private String taskName;
-    private int durationTime;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime durationTime;
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime startTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startTime;
+    private LocalDate startDate;
     @Column(name = "Status", length = 2, nullable = false)
     private boolean doneStatus;
-
-    public Task(String taskName, int durationTime, LocalDate startTime, boolean doneStatus) {
-        this.taskName = taskName;
-        this.durationTime = durationTime;
-        this.startTime = startTime;
-        this.doneStatus = doneStatus;
-    }
 
     public Task() {
     }
@@ -46,20 +42,28 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public int getDurationTime() {
+    public LocalTime getDurationTime() {
         return durationTime;
     }
 
-    public void setDurationTime(int durationTime) {
+    public void setDurationTime(LocalTime durationTime) {
         this.durationTime = durationTime;
     }
 
-    public LocalDate getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public boolean isDoneStatus() {
@@ -69,5 +73,4 @@ public class Task {
     public void setDoneStatus(boolean doneStatus) {
         this.doneStatus = doneStatus;
     }
-
 }

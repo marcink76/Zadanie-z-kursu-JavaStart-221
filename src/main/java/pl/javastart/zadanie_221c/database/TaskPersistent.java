@@ -1,7 +1,6 @@
 package pl.javastart.zadanie_221c.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.javastart.zadanie_221c.model.Task;
@@ -44,7 +43,7 @@ public class TaskPersistent {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(date, formatter);
 
-        TypedQuery<Task> query = entityManager.createQuery("select t from Task t where t.startTime ='" + localDate+
+        TypedQuery<Task> query = entityManager.createQuery("select t from Task t where t.startDate ='" + localDate+
                 "'", Task
                 .class);
         return query.getResultList();
