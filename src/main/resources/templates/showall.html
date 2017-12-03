@@ -21,7 +21,7 @@
             <th>LP</th>
             <th>ZADANIE</th>
             <th>CZAS TRWANIA</th>
-            <th>DATA ROZPOCZĘCIA</th>
+            <th><a th:href="@{'/showall?sort='+${sort}}">DATA ROZPOCZĘCIA</a></th>
             <th>GODZINA ROZPOCZECIA</th>
             <th>STATUS</th>
             <th>ZMIEN STATUS</th>
@@ -33,20 +33,21 @@
             <td th:text="${task.durationTime}"></td>
             <td th:text="${task.startDate}"></td>
             <td th:text="${task.startTime}"></td>
-            <td th:text="${task.doneStatus}"></td>
+            <td th:if="${task.doneStatus}">Zrobione</td>
+            <td th:unless="${task.doneStatus}">Do zrobienia</td>
             <td>
                 <form th:action="@{/changestatus}" method="post">
                     <input type="checkbox" th:checked="${task.doneStatus}" name="doneStatus"/>
                     <button name="id" th:value="${task.id}" type="submit" value="potwierdź">Zmien status</button>
                 </form>
             </td>
-            <td th:text="${timeToStart}"></td>
+            <td th:text="${task.getEstEndTime()}"></td>
         </tr>
 
     </table>
 </div></p>
 </div>
-
+<p th:text="${toDays}"></p>
 <div>
     <form th:action="@{/}" method="get">
         <button name="id" value="potwierdź">Powrót</button>

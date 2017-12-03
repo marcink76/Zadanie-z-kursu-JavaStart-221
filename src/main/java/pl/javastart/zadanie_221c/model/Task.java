@@ -3,7 +3,9 @@ package pl.javastart.zadanie_221c.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -12,16 +14,24 @@ public class Task {
     @Id
     @GeneratedValue
     private long id;
+
     @Column(name = "task_name", length = 150, nullable = false)
     private String taskName;
+
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime durationTime;
+
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime startTime;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
     @Column(name = "Status", length = 2, nullable = false)
     private boolean doneStatus;
+
+    @Column(name = "Zakonczenie_zadania")
+    private Duration estEndTime;
+    //private LocalDateTime estEndTime;
 
     public Task() {
     }
@@ -72,5 +82,13 @@ public class Task {
 
     public void setDoneStatus(boolean doneStatus) {
         this.doneStatus = doneStatus;
+    }
+
+    public Duration getEstEndTime() {
+        return estEndTime;
+    }
+
+    public void setEstEndTime(Duration estEndTime) {
+        this.estEndTime = estEndTime;
     }
 }

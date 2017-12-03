@@ -10,8 +10,9 @@ import pl.javastart.zadanie_221c.database.TaskPersistent;
 import pl.javastart.zadanie_221c.database.TaskRepositoryInterface;
 import pl.javastart.zadanie_221c.model.Task;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.temporal.Temporal;
 import java.util.List;
 
 @Controller
@@ -24,16 +25,39 @@ public class TaskController {
     TaskRepositoryInterface taskInterface;
 
     @GetMapping("/showall")
-    public String showAll(Model model) {
-        List<Task> taskList = taskPersistent.getAll();
-        List<LocalDateTime> timeToStart = new ArrayList<>();
+    public String showAll(@RequestParam(required = false) String sort, Model model) {
+        long toDays = 0;
+        List<Task> taskList = null;
+
+        if (sort == null) sort = "desc";
+
+        switch (sort) {
+            case "desc": {
+                sort = "asc";
+                model.addAttribute("sort", "asc");
+                break;
+            }
+            case "asc": {
+                sort = "desc";
+                model.addAttribute("sort", "desc");
+                break;
+            }
+        }
+
+        taskList = taskPersistent.sortByDate(sort);
+
         for (Task tasks : taskList) {
             LocalDateTime startDateTime = LocalDateTime.of(tasks.getStartDate(), tasks.getStartTime());
-            System.out.println(startDateTime);
+            Temporal temporal = startDateTime;
+            Temporal temporal1 = LocalDateTime.now();
+            Duration duration = Duration.between(temporal, temporal1);
+            toDays = duration.toDays();
+
+            tasks.setEstEndTime(duration);
         }
 
         model.addAttribute("taskList", taskList);
-        model.addAttribute("timeToStart", "10:00");
+        model.addAttribute("toDays", toDays);
         return "showall";
     }
 
@@ -45,7 +69,6 @@ public class TaskController {
 
     @PostMapping("/addtask")
     public String persistTask(Task task) {
-
         taskPersistent.save(task);
         return "redirect:showall";
     }

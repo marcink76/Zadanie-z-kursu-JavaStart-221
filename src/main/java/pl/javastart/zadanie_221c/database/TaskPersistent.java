@@ -48,5 +48,10 @@ public class TaskPersistent {
                 .class);
         return query.getResultList();
     }
+    public List<Task> sortByDate(String sort) {
+
+        TypedQuery<Task> query = entityManager.createQuery("select t from Task t order by t.startDate " + sort, Task.class);
+        return query.getResultList();
+    }
 
 }
